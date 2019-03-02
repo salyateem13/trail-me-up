@@ -8,6 +8,8 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
+
+
 import { AppRoutingModule } from './shared/app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +21,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 import { AuthService } from "./shared/services/auth.service";
+import { RunComponent } from './components/dashboard/run/run.component';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +33,12 @@ import { AuthService } from "./shared/services/auth.service";
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    RunComponent,
+    ProfileComponent
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     MatButtonModule, 
@@ -40,6 +47,7 @@ import { AuthService } from "./shared/services/auth.service";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+ 
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
