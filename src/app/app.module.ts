@@ -22,7 +22,6 @@ import { AuthService } from "./shared/services/auth.service";
 
 @NgModule({
   declarations: [
-    AppRoutingModule,
     AppComponent,
     LoginComponent,
     LoginFormComponent,
