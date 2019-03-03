@@ -24,6 +24,10 @@ import { AuthService } from "./shared/services/auth.service";
 import { RunComponent } from './components/dashboard/run/run.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +51,7 @@ import { ProfileComponent } from './components/dashboard/profile/profile.compone
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    DeviceDetectorModule.forRoot()
  
   ],
   providers: [AuthService],
