@@ -1,0 +1,59 @@
+<form>
+  <div class="card">
+      <div class="card-header">
+        Step 1: Starting Location
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <button type="button" class="btn btn-primary btn-lg" (click)= "findMe()">Find Me</button>
+      </div>
+  </div>
+
+<div class="card">
+    <div class="card-header">
+      Step 2.
+    </div>
+    <div class="card-body">
+      
+          <div class="form-group">
+            <label for="radius">Radius</label>
+            <div class="slidecontainer">
+              <input type="range" min="1" max="25" value="2" (input)="valueChanged($event.target.value)" class="slider" id="myRange"> 
+            </div> {{totalDistance}} :km
+          </div>
+          <div class="form-group">
+            <label for="heading">Initial Heading</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>N</option>
+              <option>NE</option>
+              <option>E</option>
+              <option>SE</option>
+              <option>S</option>
+              <option>SW</option>
+              <option>W</option>
+              <option>NW</option>
+            </select>
+          </div>
+          <div class="form-group">
+              <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-primary btn-lg">Find Route</button>
+              </div>
+          </div>
+     
+
+    </div>
+  </div>
+
+
+  <div class="card">
+      <div class="card-header">
+        Featured
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+  </div>
+</form>

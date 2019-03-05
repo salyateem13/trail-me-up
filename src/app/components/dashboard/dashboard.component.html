@@ -3,38 +3,31 @@
 
 
 <!-- Top navigation -->
-<nav class="navbar navbar-dark navbar-expand-lg sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<nav class="navbar justify-content-end navbar-light navbar-expand-lg sticky-top bg-light flex-md-nowrap p-0 shadow">
 
-    <a class="navbar-brand" routerLink="/dashboard" href="#">Navbar</a>
+    <a class="navbar-brand" routerLink="/dashboard" href="#">
+      <img src="../../../assets/pics/logo_TMU.png" width="70px" height="auto" class="d-inline-block align-top" alt="">
+      TrailMeUp
+    </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse my-2" id="navbarSupportedContent">
+  
+  <div class="collapse navbar-collapse align-self-end" id="navbarSupportedContent">
+  
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item ">
+        <a class="nav-link" href="#" routerLink="/dashboard/profile">Profile <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#" (click)="authService.SignOut()">Sign Out</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+     
     </ul>
-   
+  
   </div>
+
   </nav>
   
   <!-- Sidebar navigation -->
@@ -44,15 +37,21 @@
       <nav class="col-md-2 d-md-block d-none bg-light sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
+             <!-- Calling SignOut() Api from AuthService -->
+             <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard/find-routes" >
+                  <i class="fas fa-sign-out-alt"></i>Find Routes
+                </a>
+              </li>
+               <!-- Calling SignOut() Api from AuthService -->
+            <li class="nav-item" routerLink="/dashboard/run">
+                <a class="nav-link" >
+                  <i class="fas fa-sign-out-alt"></i>My Routes
+                </a>
+              </li>
             <li class="nav-item">
-              <a class="nav-link active" routerLink="/dashboard/profile">
-                <i class="fas fa-user"></i>User Profile
-              </a>
-            </li>
-            <!-- Calling SignOut() Api from AuthService -->
-            <li class="nav-item">
-              <a class="nav-link" (click)="authService.SignOut()">
-                <i class="fas fa-sign-out-alt"></i>Log out
+              <a class="nav-link active" routerLink="/dashboard/bike">
+                <i class="fas fa-user"></i>Bike
               </a>
             </li>
             <li class="nav-item">
@@ -60,6 +59,11 @@
                 <i class="fas "></i>Run
               </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard/history" >
+                  <i class="fas "></i>History
+                </a>
+              </li>
           </ul>
         </div>
       </nav>
