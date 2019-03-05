@@ -17,8 +17,6 @@ import {FindRoutesComponent} from "../components/dashboard/find-routes/find-rout
 
 import { AuthGuard } from "../shared/guard/auth.guard";
 import { SecureInnerPagesGuard } from "src/app/shared/guard/secure-inner-pages.guard";
-import { CircleRouteFormComponent } from '../components/dashboard/find-routes/circle-route-form/circle-route-form.component';
-import { StraightShotFormComponent } from '../components/dashboard/find-routes/straight-shot-form/straight-shot-form.component';
 
 
 const routes: Routes = [
@@ -41,15 +39,7 @@ const routes: Routes = [
             { 
               path: 'find-routes', 
               component: FindRoutesComponent, 
-              canActivate: [AuthGuard],
-              children: [{
-                  path: 'circle-route-form',
-                  component: CircleRouteFormComponent
-                  },
-                  {
-                    path: 'straight-shot-form',
-                    component: StraightShotFormComponent
-                  }]
+              canActivate: [AuthGuard]
            }
         ]},
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },

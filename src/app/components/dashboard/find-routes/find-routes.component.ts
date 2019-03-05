@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
+import * as $ from 'jquery';
 import {} from 'googlemaps';
 import { ViewChild } from '@angular/core';
 import {GoogleMapsService} from '../../../shared/services/google-maps.service'
+import { Tabs } from './tabs/tabs';
+
 
 @Component({
   selector: 'app-find-routes',
@@ -9,11 +12,13 @@ import {GoogleMapsService} from '../../../shared/services/google-maps.service'
   styleUrls: ['./find-routes.component.scss']
 })
 
-export class FindRoutesComponent implements OnInit {
+export class FindRoutesComponent implements OnInit{
   @ViewChild('poop') mapElement: any;
   @ViewChild('poop2') mapElement2: any;
   map: google.maps.Map;
-  public isViewable: boolean;
+
+  public c1isShown: boolean;
+  public c2isShown: boolean;
 
  
   marker: google.maps.Marker;
@@ -45,16 +50,19 @@ export class FindRoutesComponent implements OnInit {
 
   waypoints: google.maps.DirectionsWaypoint[] ;
 
+  public tabs: String[];
   constructor(
     public mapService: GoogleMapsService,
   ) {
- 
-   
    }
 
+   
    ngOnInit(): void {
     //set circular rotue form to true visibile
-    this.isViewable = true;
+    this.c1isShown = true;
+    this.c2isShown= false;
+    this.tabs= ['test', 'test2', 'test4'];;
+
     var mapProp = {
       center: new google.maps.LatLng(44.5793, -90.8143),
       zoom: 3,
@@ -64,11 +72,25 @@ export class FindRoutesComponent implements OnInit {
     
   }
 
-  public toggle(): void { 
-    
-    this.isViewable = !this.isViewable; 
-  }
+  public toggleA(): void { 
 
+      this.c1isShown= true;
+      this.c2isShown = false;
+      console.log("c1 =" + this.c1isShown);
+      console.log("c2 =" + this.c2isShown);
+ 
+  
+}
+public toggleB(): void { 
+ 
+    this.c1isShown= false;
+    this.c2isShown = true;
+    console.log("c1 =" + this.c1isShown);
+    console.log("c2 =" + this.c2isShown);
+
+  
+
+}
 
   findMe() {
     

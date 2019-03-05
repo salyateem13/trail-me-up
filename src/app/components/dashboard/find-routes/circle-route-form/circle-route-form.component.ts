@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter,Input } from '@angular/core';
-
+import {CircleRoute} from '../../../../models/circle-route';
 @Component({
   selector: 'app-circle-route-form',
   templateUrl: './circle-route-form.component.html',
@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter,Input } from '@angular/core';
 })
 export class CircleRouteFormComponent implements OnInit {
   totalDistance: any = 2;
+  routeDetails = new CircleRoute(null, '14', 'NE', '','');
   constructor() { }
   @Input()  pos: any;
   @Output() positionObject = new EventEmitter<any>();
@@ -43,4 +44,16 @@ export class CircleRouteFormComponent implements OnInit {
       }, error, options);
 
   }
+
+  registerRouteDetails( )
+    {
+
+     this.routeDetails =new CircleRoute(null, '', '', '','');
+     console.log(this.routeDetails);
+    }
+
+    onSubmit(){
+      console.log(this.routeDetails);
+    }
+
 }

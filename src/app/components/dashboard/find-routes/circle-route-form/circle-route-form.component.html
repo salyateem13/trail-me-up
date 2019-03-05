@@ -1,59 +1,69 @@
-<form>
+<form #circleRouteForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="card">
       <div class="card-header">
         Step 1: Starting Location
       </div>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <button type="button" class="btn btn-primary btn-lg" (click)= "findMe()">Find Me</button>
+        
+        <div class="col-md-12 text-center">
+            <div class="form-group">
+              <button type="button" class="btn btn-primary btn-lg" (click)= "findMe()">Find Me</button>
+            <hr>
+            <label for="startAddress">Start Address</label>
+            <input  [(ngModel)]="routeDetails.address" name="address" #address="ngModel" type="address" class="form-control" id="circleRouteInputAddress" placeholder="Enter Address">
+
+        </div>
       </div>
   </div>
 
 <div class="card">
     <div class="card-header">
-      Step 2.
+      Step 2: Path Radius
     </div>
     <div class="card-body">
       
           <div class="form-group">
             <label for="radius">Radius</label>
             <div class="slidecontainer">
-              <input type="range" min="1" max="25" value="2" (input)="valueChanged($event.target.value)" class="slider" id="myRange"> 
-            </div> {{totalDistance}} :km
+              <input [(ngModel)]="routeDetails.radius" name="radius" #radius="ngModel" type="range" min="1" max="25" value="2" (input)="valueChanged($event.target.value)" class="slider" id="circleRouteRadius"> 
+            </div> {{totalDistance}} :mi
           </div>
-          <div class="form-group">
-            <label for="heading">Initial Heading</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>N</option>
-              <option>NE</option>
-              <option>E</option>
-              <option>SE</option>
-              <option>S</option>
-              <option>SW</option>
-              <option>W</option>
-              <option>NW</option>
-            </select>
-          </div>
-          <div class="form-group">
-              <div class="col-md-12 text-center">
-              <button type="submit" class="btn btn-primary btn-lg">Find Route</button>
-              </div>
-          </div>
-     
-
+         
     </div>
+    
   </div>
-
-
   <div class="card">
       <div class="card-header">
-        Featured
+        Step 3: Initial Heading
       </div>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="form-group">
+              <label for="heading">Initial Heading</label>
+              <select  [(ngModel)]="routeDetails.heading" name="heading" #heading="ngModel" class="form-control" id="exampleFormControlSelect1">
+                <option>N</option>
+                <option>NE</option>
+                <option>E</option>
+                <option>SE</option>
+                <option>S</option>
+                <option>SW</option>
+                <option>W</option>
+                <option>NW</option>
+              </select>
+            </div> 
       </div>
-  </div>
-</form>
+      
+    </div>
+    <div class="card">
+        <div class="card-header">
+          Step 4: Find Path
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+              <div class="col-md-12 text-center">
+                  <button type="submit"  class="btn btn-primary btn-lg">Find Route</button>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+  <form>

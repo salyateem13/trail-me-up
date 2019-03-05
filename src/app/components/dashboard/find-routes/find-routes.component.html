@@ -5,7 +5,7 @@
     <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Find Route</h1>
     </div>
-    <!-- Show user data when logged in -->
+
     <div class="row" >
             <div class="col-md-12">
                 <div class="media">
@@ -25,23 +25,18 @@
         <div class="col-md-12">
                  
                 <div class="media-body">
-
-                       
-                   
                         <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                        <a class="nav-link active" href="#home" id="home-tab" data-toggle="tab" (click)="toggle()" role="tab" aria-controls="home" aria-selected="true">Circular Route</a>
+                                        <a class="nav-link active" href="#home" id="circle-route-tab" data-toggle="tab"  role="tab" aria-controls="home" aria-selected="true" (click)="this.toggleA()">Circular Route</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" href="#profile" data-toggle="tab"  role="tab" (click)="toggle()" aria-controls="profile" aria-selected="false">Destination</a>
+                                    <a class="nav-link" id="straight-route-tab" href="#profile" data-toggle="tab"  role="tab"  aria-controls="profile" aria-selected="false" (click)="this.toggleB()">Destination</a>
                                 </li>
                             </ul>
-                               <app-circle-route-form  *ngIf="b1isShown" (positionObject)="onFindMe($event)"></app-circle-route-form>
-                               <app-straight-shot-form *ngIf="b2isShown"></app-straight-shot-form>
-                      
-                        
-  
-                        
+                    
+                                <app-circle-route-form *ngIf="c1isShown"  (positionObject)="onFindMe($event)"></app-circle-route-form>
+                                <app-straight-shot-form *ngIf="!c1isShown" ></app-straight-shot-form>      
+                         
                 </div>
         </div>
     </div>
