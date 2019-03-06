@@ -1,40 +1,31 @@
-<!-- <form>
+<form #circleRouteForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="card">
         <div class="card-header">
-         gawrgqwrgqwrfgqwr Step 1: Starting Location
+          Step 1: Starting Location
         </div>
         <div class="card-body">
           
           <div class="col-md-12 text-center">
-              <button type="button" class="btn btn-primary btn-lg" (click)= "findMe()">Find Me</button>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-lg" (click)= "findMe()">Find Me</button>
+              <hr>
+              <label for="startAddress">Start Address</label>
+              <input  [(ngModel)]="routeDetails.address" name="address" #address="ngModel" type="address" class="form-control" id="circleRouteInputAddress" placeholder="Enter Address">
+              <input  [(ngModel)]="routeDetails.city" name="city" #city="ngModel" type="city" class="form-control" id="circleRouteInputAddress" placeholder="Enter City">
+              <input  [(ngModel)]="routeDetails.state" name="state" #state="ngModel" type="state" class="form-control" id="circleRouteInputAddress" placeholder="Enter State">
           </div>
         </div>
     </div>
   
-  <div class="card">
-      <div class="card-header">
-        Step 2: Path Radius
-      </div>
-      <div class="card-body">
-        
-            <div class="form-group">
-              <label for="radius">Radius</label>
-              <div class="slidecontainer">
-                <input type="range" min="1" max="25" value="2" (input)="valueChanged($event.target.value)" class="slider" id="myRange"> 
-              </div> {{totalDistance}} :km
-            </div>
-           
-      </div>
-      
-    </div>
+ 
     <div class="card">
         <div class="card-header">
-          Step 3: Initial Heading
+          Step 2: Initial Heading
         </div>
         <div class="card-body">
               <div class="form-group">
                 <label for="heading">Initial Heading</label>
-                <select class="form-control" id="exampleFormControlSelect1">
+                <select  [(ngModel)]="routeDetails.heading" name="heading" #heading="ngModel" class="form-control" id="exampleFormControlSelect1">
                   <option>N</option>
                   <option>NE</option>
                   <option>E</option>
@@ -50,19 +41,16 @@
       </div>
       <div class="card">
           <div class="card-header">
-            Step 4: Find Path
+            Step 3: Find Path
           </div>
           <div class="card-body">
             <div class="form-group">
                 <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">Find Route</button>
+                    <button type="submit"  class="btn btn-primary btn-lg">Find Route</button>
                 </div>
             </div>
           </div>
           
         </div>
     <form>
-   -->
-   <p>Straight shot works
-     
-   </p>
+  

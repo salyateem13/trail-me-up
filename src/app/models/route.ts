@@ -4,7 +4,8 @@ export abstract class Route {
          public id: number,
          public heading: string,
          public address?: string,
-         public zipCode?: string){
+         public city?: string,
+         public state?: string){
 
     }
     

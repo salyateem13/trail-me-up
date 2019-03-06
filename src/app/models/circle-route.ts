@@ -6,12 +6,12 @@ export class CircleRoute  extends Route{
         public radius: any,
         public heading: string,
         public address?: string,
-        public zipCode?: string,
-        
+        public city?: string,
+        public state?: string        
 ) {
-        super( id, heading, address, zipCode);
-        this.radius=radius
+        super( id, heading, address, city, state);
+        this.radius=radius;
     
-        }
+    }
 
 }

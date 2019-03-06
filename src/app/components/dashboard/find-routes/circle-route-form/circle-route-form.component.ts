@@ -7,7 +7,7 @@ import {CircleRoute} from '../../../../models/circle-route';
 })
 export class CircleRouteFormComponent implements OnInit {
   totalDistance: any = 2;
-  routeDetails = new CircleRoute(null, '14', 'NE', '','');
+  routeDetails = new CircleRoute(null, '2', 'N', '','','');
   constructor() { }
   @Input()  pos: any;
   @Output() positionObject = new EventEmitter<any>();
@@ -45,13 +45,7 @@ export class CircleRouteFormComponent implements OnInit {
 
   }
 
-  registerRouteDetails( )
-    {
-
-     this.routeDetails =new CircleRoute(null, '', '', '','');
-     console.log(this.routeDetails);
-    }
-
+  
     onSubmit(){
       console.log(this.routeDetails);
     }
