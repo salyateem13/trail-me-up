@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-12 text-center">
                 <button type="button" class="btn btn-primary btn-lg">Save Route</button>
-                <button type="button" class="btn btn-primary btn-lg" (click)="findMe()">Find Me</button>
+                <button type="button" class="btn btn-primary btn-lg" >Find Me</button>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,7 @@
                                 </li>
                             </ul>
                     
-                                <app-circle-route-form *ngIf="c1isShown"  (positionObject)="onFindMe($event)"></app-circle-route-form>
+                                <app-circle-route-form *ngIf="c1isShown"  (positionObject)="onFindMe($event)" (circleRouteObject)="onSubmitRoute()"></app-circle-route-form>
                                 <app-straight-shot-form *ngIf="!c1isShown" ></app-straight-shot-form>      
                          
                 </div>

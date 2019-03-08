@@ -1,16 +1,16 @@
 import {Route} from './route';
+import {Address} from './address';
 export class CircleRoute  extends Route{
     
     constructor(
         public id: number,
+        public startLocation: any,
+        public startAddress: Address,
         public radius: any,
-        public heading: string,
-        public address?: string,
-        public city?: string,
-        public state?: string        
+        public heading: string
+            
 ) {
-        super( id, heading, address, city, state);
-        this.radius=radius;
+        super( id, startLocation, startAddress);
     
     }
 
