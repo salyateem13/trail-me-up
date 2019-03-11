@@ -34,9 +34,8 @@
                                 </li>
                             </ul>
                     
-                                <app-circle-route-form *ngIf="c1isShown"  (positionObject)="onFindMe($event)" (circleRouteObject)="onSubmitRoute()"></app-circle-route-form>
+                                <app-circle-route-form *ngIf="c1isShown"  (positionObject)="onFindMe($event)" (circleRouteObject)="onSubmitRoute($event)"></app-circle-route-form>
                                 <app-straight-shot-form *ngIf="!c1isShown" ></app-straight-shot-form>      
-                         
                 </div>
         </div>
     </div>

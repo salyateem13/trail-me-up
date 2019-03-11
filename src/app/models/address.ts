@@ -5,7 +5,7 @@ export class Address {
         public state: string
         ){}
 
-        toString(){
+        toString():string{
             return this.address + ' ' + this.city + ' ' + this.state;
         }
 }

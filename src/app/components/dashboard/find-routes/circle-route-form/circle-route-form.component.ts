@@ -1,10 +1,11 @@
 import { Component, OnInit, Output, EventEmitter,Input } from '@angular/core';
 import {CircleRoute} from '../../../../models/circle-route';
 import {GoogleMapsService} from '../../../../shared/services/google-maps.service';
-import { emit } from 'cluster';
 import { BehaviorSubject } from 'rxjs';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { MapService } from 'src/app/shared/services/map.service';
+import {Address} from '../../../../models/address';
+import { GeocodingService } from 'src/app/shared/services/geocoding.service';
 @Component({
   selector: 'app-circle-route-form',
   templateUrl: './circle-route-form.component.html',
@@ -12,7 +13,7 @@ import { MapService } from 'src/app/shared/services/map.service';
 })
 export class CircleRouteFormComponent implements OnInit {
   totalDistance: any = 2;
-  routeDetails = new CircleRoute(null, '', null , '2','N');
+  routeDetails = new CircleRoute(null, null , {address: '', city: '', state: ''} , '2','N');
   
   @Input()  pos: Position;
   @Output() positionObject = new EventEmitter<any>();
@@ -26,8 +27,7 @@ export class CircleRouteFormComponent implements OnInit {
   // Info window.
   content: string;
 
-  // Address to be searched.
-  address: string;
+ 
 
   // Warning flag & message.
   warning: boolean;
@@ -42,7 +42,7 @@ export class CircleRouteFormComponent implements OnInit {
   constructor(
     public googleMapsService: GoogleMapsService,
     public locationService: LocationService,
-    public mapService: MapService
+    public geocodeService: GeocodingService
   ) { }
 
 
@@ -94,7 +94,24 @@ export class CircleRouteFormComponent implements OnInit {
         this.locationService.getCurrentPosition().subscribe(
             (position: Position) => {
               this.positionObject.emit(position);
-             },
+              this.routeDetails.startLocation = position;
+             
+             
+              this.geocodeService.geocode(new google.maps.LatLng(position.coords.latitude, position.coords.longitude)).forEach(
+                (results:google.maps.GeocoderResult[]) => {
+                  this.routeDetails.startAddress.address = results[0].address_components[0].long_name+ " " + results[0].address_components[1].short_name;
+                  this.routeDetails.startAddress.city    = results[0].address_components[2].short_name;
+                  this.routeDetails.startAddress.state   = results[0].address_components[4].short_name;
+                })
+                .then(() => console.log('Geocoding complete'))
+                .catch((error: google.maps.GeocoderStatus) => {
+                  if (error === google.maps.GeocoderStatus.ZERO_RESULTS) {
+                    this.message = "zero results";
+                    this.warning = true;
+                    }
+                });
+                
+                },
             (error: PositionError) => {
                 if (error.code > 0) {
                     switch (error.code) {
@@ -117,6 +134,13 @@ export class CircleRouteFormComponent implements OnInit {
         this.message = "browser doesn't support geolocation";
         this.warning = true;
     }
+    // this.googleMapsService.CoordToAddress(this.routeDetails.startLocation).subscribe((address:Address) => 
+    //            {
+    //              this.routeDetails.startAddress.address =address.address;
+    //              this.routeDetails.startAddress.city =address.city;
+    //              this.routeDetails.startAddress.state= address.state;
+    //              console.log(this.routeDetails);
+    //            });
 
 
 
@@ -134,21 +158,12 @@ export class CircleRouteFormComponent implements OnInit {
     
   }
 
-   // Sets the marker & the info window.
-   setMarker(latLng: google.maps.LatLng, title: string, content: string): void {
-    this.mapService.deleteMarkers();
-    // Sets the marker.
-    this.position = latLng;
-    this.title = title;
-    // Sets the info window.
-    this.content = content;
-}
-
 
    
 
   //emit routeObject to paremnt component
-    onSubmit(){                                                                                                                                                                                                                                             
+    onSubmit(){     
+      console.log(this.routeDetails);                                                                                                                                                                                                                                        
       this.circleRouteObject.emit(this.routeDetails);
       
     }
