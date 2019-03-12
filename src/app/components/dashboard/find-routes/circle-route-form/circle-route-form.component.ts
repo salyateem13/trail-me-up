@@ -13,7 +13,7 @@ import { GeocodingService } from 'src/app/shared/services/geocoding.service';
 })
 export class CircleRouteFormComponent implements OnInit {
   totalDistance: any = 2;
-  routeDetails = new CircleRoute(null, null , {address: '', city: '', state: ''} , '2','N');
+  routeDetails = new CircleRoute('2','N', null,new google.maps.LatLng(0,0) ,{address: '', city: '', state: ''} );
   
   @Input()  pos: Position;
   @Output() positionObject = new EventEmitter<any>();
@@ -84,19 +84,21 @@ export class CircleRouteFormComponent implements OnInit {
 //   }
 
 
-
+  findAddress(){
+      
+  }
 
    findMe(){
     this.warning = false;
     this.message = "";
-
+    //if browser has geolocation, subscribe to output of locationService.getCurrentPosition()
     if (navigator.geolocation) {
         this.locationService.getCurrentPosition().subscribe(
             (position: Position) => {
               this.positionObject.emit(position);
-              this.routeDetails.startLocation = position;
+              this.routeDetails.startLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
              
-             
+             //geocode geolocation to address
               this.geocodeService.geocode(new google.maps.LatLng(position.coords.latitude, position.coords.longitude)).forEach(
                 (results:google.maps.GeocoderResult[]) => {
                   this.routeDetails.startAddress.address = results[0].address_components[0].long_name+ " " + results[0].address_components[1].short_name;
@@ -161,7 +163,7 @@ export class CircleRouteFormComponent implements OnInit {
 
    
 
-  //emit routeObject to paremnt component
+  //emit routeObject to parent component
     onSubmit(){     
       console.log(this.routeDetails);                                                                                                                                                                                                                                        
       this.circleRouteObject.emit(this.routeDetails);

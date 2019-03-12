@@ -3,15 +3,16 @@ import {Address} from './address';
 export class CircleRoute  extends Route{
     
     constructor(
-        public id: number,
-        public startLocation: Position,
-        public startAddress: Address,
         public radius: any,
         public heading: string,
-        public waypoints ?: google.maps.DirectionsWaypoint[] 
+        public id: number, 
+        public startLocation: google.maps.LatLng, 
+        public startAddress: Address, 
+        public waypoints ?: google.maps.DirectionsWaypoint[] ,
+        public endAddress?: Address
             
 ) {
-        super( id, startLocation, startAddress);
+        super(id, startLocation, startAddress);
         this.radius = radius,
         this.heading = heading
     

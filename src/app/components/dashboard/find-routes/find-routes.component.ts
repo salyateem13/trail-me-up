@@ -21,7 +21,7 @@ export class FindRoutesComponent implements OnInit{
 
   public c1isShown: boolean;
   public c2isShown: boolean;
-
+  hasRoute:boolean;
  
   marker: google.maps.Marker;
 
@@ -53,10 +53,18 @@ export class FindRoutesComponent implements OnInit{
     //set circular rotue form to true visibile
     this.c1isShown = true;
     this.c2isShown= false;
+
+    this.hasRoute = false;
   
 
     
     this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapProp);
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay  = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: this.map,
+      panel: this.mapElement.nativeElement
+    });
     
   }
 
@@ -81,13 +89,16 @@ export class FindRoutesComponent implements OnInit{
   }
 
 
-
   onSubmitRoute(routeObject){
 
     this.warning = false;
     this.message = "";
     var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsDisplay  = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: this.map, 
+      panel: this.mapElement.nativeElement
+    });
       this.mapService.GetRoute(routeObject).forEach(
         (result) => {
           //disply route on map
@@ -101,12 +112,14 @@ export class FindRoutesComponent implements OnInit{
             this.warning = true;
             }
         });
+        this.hasRoute= true;
+    
   }
 
 
-  onFindMe(position: any){
-    this.currentLat = position.coords.latitude;
-    this.currentLong = position.coords.longitude;
+  onFindMe(position: Position){
+    // this.currentLat = position.coords.latitude;
+    // this.currentLong = position.coords.longitude;
 
     let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     this.map.panTo(location);

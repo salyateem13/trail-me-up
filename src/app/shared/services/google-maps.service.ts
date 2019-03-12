@@ -3,7 +3,7 @@ import {Route} from '../../models/route';
 import {CircleRoute} from '../../models/circle-route';
 import {StraightRoute} from '../../models/straight-route';
 import { Observable, Observer,  of, BehaviorSubject } from 'rxjs';
-
+import {GeocodingService} from './geocoding.service';
 import { Address } from 'src/app/models/address';
 import { debug } from 'util';
 
@@ -12,7 +12,7 @@ import { debug } from 'util';
 })
 export class GoogleMapsService {
   
-
+  
   directionsService: google.maps.DirectionsService;
   directionsRequest :
   {
@@ -37,8 +37,11 @@ export class GoogleMapsService {
   currentLat: any;
   currentLong: any;
   
-  constructor() { 
+  constructor(
+    public geocodeService: GeocodingService
+  ) { 
     this.directionsService = new google.maps.DirectionsService();
+    
      
   }
   
@@ -51,11 +54,12 @@ export class GoogleMapsService {
       
       //return route object with waypoints
       var wpt = this.FindWaypoints(routeObject);
-      var endAdrs = routeObject.endAddress.toString();
+      // var endAdrs = JSON.stringify(routeObject.startAddress.toString() )  ;
+      // console.log(JSON.stringify(routeObject.startAddress.toString() ));
     return Observable.create((observer:Observer<google.maps.DirectionsResult>) => {
       this.directionsService.route({
-        origin : '2055 Shaudi Ln Atlanta GA 30345',
-        destination: '2055 Shaudi Ln Atlanta GA 30345',
+        origin : routeObject.startAddress.address + routeObject.startAddress.city+ routeObject.startAddress.state,
+        destination: routeObject.startAddress.address + routeObject.startAddress.city+ routeObject.startAddress.state,
         waypoints: wpt,
     
         //waypoints: routeWithWaypoints,
@@ -105,46 +109,23 @@ export class GoogleMapsService {
    
     
    }
-  
-  
-  // AddressToCoord(address: Address){
-  //   var geocoder = new google.maps.Geocoder;
-  
-    
-  //   geocoder.geocode({'address' : address.toString()}, function (result, status){
-  //     if (status === google.maps.GeocoderStatus.OK) {
-  //       console.log(result[0].geometry.location);
-  //     }
-  //     else {
-  //       alert('Geocode was not successful for the following reason: ' + status);
-  //     }
-  //   });
-  
-  // }
 
-  //   CoordToAddress(position):Observable<Address>{
-  //   var geocoder = new google.maps.Geocoder;
-  //   var latLng = { lat: position.coords.latitude, lng: position.coords.longitude};
-  //   var address: Address;
-  //   geocoder.geocode({'location':latLng}, function (result, status){
-  //     if(status === google.maps.GeocoderStatus.OK){
-  //       if (result[0]) {
-  //           let address1: Address = {"address": result[0].address_components[0].long_name + " " + result[0].address_components[1].short_name, "city": result[0].address_components[2].short_name, "state":result[0].address_components[4].short_name};
-  //           this.address = address1;
-  //           return address;
-  //       } else {
-  //         window.alert('No results found');
-  //       }
-  //     }else {
-  //       window.alert('Geocoder failed due to: ' + status); 
-
-  //     }
-  //   });
-  //   return Observable.create(address);
-
-  // }
-
+ 
   FindWaypoints (routeObject:CircleRoute):google.maps.DirectionsWaypoint[]{
+
+      //gecode address to LatLng to find waypoints
+     
+      var geoResult= this.geocodeService.codeAddress(routeObject.startAddress.address + routeObject.startAddress.city + routeObject.startAddress.state).forEach(
+        (results:google.maps.GeocoderResult[])=>{
+          
+         // var lat:number = ;
+         var location= new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+         // routeObject.startLocation= results[0].geometry.location;
+         routeObject.startLocation = location;
+        });
+        
+     
+
       //calculate wayponts starting in starting direction
       switch(routeObject.heading){
         case 'N' :
@@ -161,15 +142,15 @@ export class GoogleMapsService {
         
          var waypoints:google.maps.DirectionsWaypoint[] = [];
          waypoints.push({
-           location: new google.maps.LatLng(routeObject.startLocation.coords.latitude , routeObject.startLocation.coords.longitude+ ((1/69)*(routeObject.radius/4))),
+           location: new google.maps.LatLng(routeObject.startLocation.lat() , routeObject.startLocation.lng()+ ((1/69)*(routeObject.radius/4))),
            stopover: false
          });
          waypoints.push({
-          location: new google.maps.LatLng(routeObject.startLocation.coords.latitude + ((1/69)*(routeObject.radius/4)), routeObject.startLocation.coords.longitude+ ((1/69)*(routeObject.radius/4))),
+          location: new google.maps.LatLng(routeObject.startLocation.lat() + ((1/69)*(routeObject.radius/4)), routeObject.startLocation.lng()+ ((1/69)*(routeObject.radius/4))),
           stopover: false
         });
         waypoints.push({
-          location: new google.maps.LatLng(routeObject.startLocation.coords.latitude + ((1/69)*(routeObject.radius/4)), routeObject.startLocation.coords.longitude),
+          location: new google.maps.LatLng(routeObject.startLocation.lat() + ((1/69)*(routeObject.radius/4)), routeObject.startLocation.lng()),
           stopover: false
         });
          

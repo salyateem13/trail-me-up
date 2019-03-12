@@ -6,6 +6,6 @@ export class Address {
         ){}
 
         toString():string{
-            return this.address + ' ' + this.city + ' ' + this.state;
+            return this.address.toString() ;
         }
 }
