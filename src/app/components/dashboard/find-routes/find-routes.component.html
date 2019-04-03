@@ -12,13 +12,17 @@
                 
               
                     <div id="map" #poop ></div>
+                   
                 </div>
             </div>
         </div>
     
     <div class="row">
         <div class="col-md-12">
-                 
+            <div class="text-center" *ngIf="hasRoute"> 
+                <button type="button" class="btn btn-primary btn-lg" (click)= "saveRoute()" >Save Route</button>
+                <!-- <button type="button" class="btn btn-primary btn-lg" >Start a Workout</button> -->
+         </div>
                 <div class="media-body">
                         <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
@@ -30,7 +34,7 @@
                             </ul>
                     
                                 <app-circle-route-form *ngIf="c1isShown"  (positionObject)="onFindMe($event)" (circleRouteObject)="onSubmitRoute($event)"></app-circle-route-form>
-                                <app-straight-shot-form *ngIf="!c1isShown" ></app-straight-shot-form>      
+                                <app-straight-shot-form *ngIf="!c1isShown" (positionObject)="onFindMe($event)" (straightRouteObject)="onSubmitRoute($event)"></app-straight-shot-form>      
                 </div>
         </div>
     </div>

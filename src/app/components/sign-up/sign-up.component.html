@@ -5,15 +5,15 @@
       <h3>Sign Up</h3>
 
       <div class="formGroup">
-        <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
+        <input [(ngModel)]="registerUserData.email" type="email" class="formControl" placeholder="Email Address"  required>
       </div>
 
       <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPwd required>
+        <input [(ngModel)]="registerUserData.password" type="password" class="formControl" placeholder="Password" required>
       </div>
 
       <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
+        <input type="button" class="btn btnPrimary" value="Sign Up" (click)="registerUser()">
       </div>
 
       <div class="formGroup">

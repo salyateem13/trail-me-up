@@ -15,7 +15,7 @@ export class CircleRouteFormComponent implements OnInit {
   totalDistance: any = 2;
   routeDetails = new CircleRoute('2','N', null,new google.maps.LatLng(0,0) ,{address: '', city: '', state: ''} );
   
-  @Input()  pos: Position;
+  @Input()  pos: google.maps.LatLng;
   @Output() positionObject = new EventEmitter<any>();
 
   @Input()  circleRoute: any;
@@ -27,8 +27,6 @@ export class CircleRouteFormComponent implements OnInit {
   // Info window.
   content: string;
 
- 
-
   // Warning flag & message.
   warning: boolean;
   message: string;
@@ -38,13 +36,11 @@ export class CircleRouteFormComponent implements OnInit {
   // Center map. Required.
   center: google.maps.LatLng;
 
-
   constructor(
     public googleMapsService: GoogleMapsService,
     public locationService: LocationService,
     public geocodeService: GeocodingService
   ) { }
-
 
   ngOnInit() {
     this.positionObject.emit(this.pos);
@@ -55,39 +51,7 @@ export class CircleRouteFormComponent implements OnInit {
   
     this.totalDistance =e;
 }
-
-
-//   findMe(){
-
-//     var options = {
-//       enableHighAccuracy: true,
-//       timeout: 15000,
-//       maximumAge: 0
-//     };
-
-    
-
-//     function error(err) {
-//       console.warn(`ERROR(${err.code}): ${err.message}`);
-//     }
-// 1
-
-//       navigator.geolocation.getCurrentPosition((position)=>{
-//         this.position = position;
-//         this.routeDetails.startLocation= position;
-//         this.mapsService.CoordToAddress(position)
-//           .subscribe(address => this.routeDetails.startAddress = address);
-//           console.log("Current Address from Geolocation " + this.routeDetails.startAddress);
-//         this.positionObject.emit(position);
-//       }, error, options);
-      
-//   }
-
-
-  findAddress(){
-      
-  }
-
+  
    findMe(){
     this.warning = false;
     this.message = "";
@@ -95,9 +59,12 @@ export class CircleRouteFormComponent implements OnInit {
     if (navigator.geolocation) {
         this.locationService.getCurrentPosition().subscribe(
             (position: Position) => {
-              this.positionObject.emit(position);
-              this.routeDetails.startLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-             
+              //emit to parent component to display
+              
+              let pos: google.maps.LatLng;
+              pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+              this.routeDetails.startLocation = pos;
+              this.positionObject.emit(pos);
              //geocode geolocation to address
               this.geocodeService.geocode(new google.maps.LatLng(position.coords.latitude, position.coords.longitude)).forEach(
                 (results:google.maps.GeocoderResult[]) => {
@@ -160,6 +127,15 @@ export class CircleRouteFormComponent implements OnInit {
     
   }
 
+  findAddress(address:Address){
+    let position:google.maps.LatLng;
+    this.geocodeService.codeAddress(address.address + '' + address.city + '' + address.state)
+    .subscribe((result) => {
+      position = new google.maps.LatLng (result[0].geometry.location.lat(), result[0].geometry.location.lng());
+      this.positionObject.emit(position);
+    });
+    
+  }
 
    
 

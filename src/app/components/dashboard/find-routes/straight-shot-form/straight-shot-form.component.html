@@ -1,56 +1,54 @@
-<!-- <form #circleRouteForm="ngForm" (ngSubmit)="onSubmit()">
-    <div class="card">
-        <div class="card-header">
-          Step 1: Starting Location
-        </div>
-        <div class="card-body">
-          
-          <div class="col-md-12 text-center">
-              <div class="form-group">
-                <button type="button" class="btn btn-primary btn-lg" (click)= "findMe()">Find Me</button>
-              <hr>
+<form #circleRouteForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="card">
+      <div class="card-header">
+        Step 1: Starting Location
+      </div>
+      <div class="card-body">
+        
+        <div class="col-md-12 text-center">
+            <div class="form-group">
               <label for="startAddress">Start Address</label>
-              <input  [(ngModel)]="routeDetails.address" name="address" #address="ngModel" type="address" class="form-control" id="circleRouteInputAddress" placeholder="Enter Address">
-              <input  [(ngModel)]="routeDetails.city" name="city" #city="ngModel" type="city" class="form-control" id="circleRouteInputAddress" placeholder="Enter City">
-              <input  [(ngModel)]="routeDetails.state" name="state" #state="ngModel" type="state" class="form-control" id="circleRouteInputAddress" placeholder="Enter State">
+              <input  [(ngModel)]="routeDetails.startAddress.address" name="address" #address="ngModel" type="address" class="form-control" id="circleRouteInputAddress" placeholder="Enter Address">
+              <input  [(ngModel)]="routeDetails.startAddress.city" name="city" #city="ngModel" type="city" class="form-control" id="circleRouteInputAddress" placeholder="Enter City">
+              <input  [(ngModel)]="routeDetails.startAddress.state" name="state" #state="ngModel" type="state" class="form-control" id="circleRouteInputAddress" placeholder="Enter State">
+              <button type="button" class="btn btn-primary btn-lg" (click)= "findAddress(routeDetails.startAddress)">Search Address</button>
+
           </div>
+      </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      Step 2: End Location
+    </div>
+    <div class="card-body">
+      
+      <div class="col-md-12 text-center">
+          
+            <label for="startAddress">Start Address</label>
+            <input  [(ngModel)]="routeDetails.endAddress.address" name="address" #address="ngModel" type="address" class="form-control" id="circleRouteInputAddress" placeholder="Enter Address">
+            <input  [(ngModel)]="routeDetails.endAddress.city" name="city" #city="ngModel" type="city" class="form-control" id="circleRouteInputAddress" placeholder="Enter City">
+            <input  [(ngModel)]="routeDetails.endAddress.state" name="state" #state="ngModel" type="state" class="form-control" id="circleRouteInputAddress" placeholder="Enter State">
+            <button type="button" class="btn btn-primary btn-lg" (click)= "findAddress(routeDetails.endAddress)">Search Address</button>
+            <button type="submit"  class="btn btn-primary btn-lg">Find Route</button>
+
         </div>
     </div>
-  
+</div>
+
+
+
  
     <div class="card">
         <div class="card-header">
-          Step 2: Initial Heading
+          Step 4: Find Path
         </div>
         <div class="card-body">
-              <div class="form-group">
-                <label for="heading">Initial Heading</label>
-                <select  [(ngModel)]="routeDetails.heading" name="heading" #heading="ngModel" class="form-control" id="exampleFormControlSelect1">
-                  <option>N</option>
-                  <option>NE</option>
-                  <option>E</option>
-                  <option>SE</option>
-                  <option>S</option>
-                  <option>SW</option>
-                  <option>W</option>
-                  <option>NW</option>
-                </select>
-              </div> 
+          <div class="form-group">
+              <div class="col-md-12 text-center">
+                  <button type="submit"  class="btn btn-primary btn-lg">Find Route</button>
+              </div>
+          </div>
         </div>
         
       </div>
-      <div class="card">
-          <div class="card-header">
-            Step 3: Find Path
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-                <div class="col-md-12 text-center">
-                    <button type="submit"  class="btn btn-primary btn-lg">Find Route</button>
-                </div>
-            </div>
-          </div>
-          
-        </div>
-    <form>
-   -->
+  <form>

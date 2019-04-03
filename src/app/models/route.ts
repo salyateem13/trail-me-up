@@ -6,7 +6,9 @@ export abstract class Route {
         public id: number,
         public startLocation: google.maps.LatLng,
         public startAddress: Address,
-        public endAddress?: Address){
+        public endLocation?: google.maps.LatLng,
+        public endAddress?: Address,
+        public directionsResult?: google.maps.DirectionsResult){
 
     }
     

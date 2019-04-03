@@ -10,6 +10,7 @@ export class CircleRoute  extends Route{
         public startAddress: Address, 
         public waypoints ?: google.maps.DirectionsWaypoint[] ,
         public endAddress?: Address
+        
             
 ) {
         super(id, startLocation, startAddress);

@@ -9,11 +9,19 @@ import { AuthService } from "../../shared/services/auth.service";
 })
 export class SignUpComponent implements OnInit {
 
+  registerUserData ={};
   constructor(    
       public authService: AuthService
     ) { }
 
   ngOnInit() {
+  } 
+
+  registerUser(user){
+    return this.authService.SpringRegisterUser(this.registerUserData).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    )
   }
 
 }

@@ -8,6 +8,8 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+
 
 import {ViewChild} from '@angular/core';
 import { AppRoutingModule } from './shared/app-routing.module';
@@ -19,8 +21,6 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import {Tab} from './components/dashboard/find-routes/tabs/tab';
-import {Tabs} from './components/dashboard/find-routes/tabs/tabs';
 
 import { AuthService } from "./shared/services/auth.service";
 import { RunComponent } from './components/dashboard/run/run.component';
@@ -48,14 +48,14 @@ import { StraightShotFormComponent } from './components/dashboard/find-routes/st
     FindRoutesComponent,
     CircleRouteFormComponent,
     StraightShotFormComponent,
-    Tabs, 
-    Tab
+    
     
   ],
   imports: [
     
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule,
     CommonModule,
     MatButtonModule, 

@@ -1,12 +1,9 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
-import * as $ from 'jquery';
 import {} from 'googlemaps';
 import { ViewChild } from '@angular/core';
 import {GoogleMapsService} from '../../../shared/services/google-maps.service'
-import { Tabs } from './tabs/tabs';
 import {LocationService} from '../../../shared/services/location.service';
-import { MappingsContext } from 'source-list-map';
-
+import {RouteService} from '../../../shared/services/route.service';
 @Component({
   selector: 'app-find-routes',
   templateUrl: './find-routes.component.html',
@@ -24,7 +21,7 @@ export class FindRoutesComponent implements OnInit{
   hasRoute:boolean;
  
   marker: google.maps.Marker;
-
+  directionsResult: google.maps.DirectionsResult;
 
   // Warning flag & message.
   warning: boolean;
@@ -33,7 +30,7 @@ export class FindRoutesComponent implements OnInit{
 
   currentLat: any = 100000;
   currentLong: any = 100000;
-   mapProp = {
+  mapProp = {
     center: new google.maps.LatLng(44.5793, -90.8143),
     zoom: 3,
     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -43,7 +40,8 @@ export class FindRoutesComponent implements OnInit{
   public tabs: String[];
   constructor(
     public mapService: GoogleMapsService,
-    public locationService: LocationService
+    public locationService: LocationService,
+    public routeService: RouteService
   ) {
    
    }
@@ -105,6 +103,7 @@ export class FindRoutesComponent implements OnInit{
           this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapProp);
           directionsDisplay.setMap(this.map);
           directionsDisplay.setDirections(result);
+          this.directionsResult = result;
         }).then(() => console.log('Route display complete'))
         .catch((error: google.maps.DirectionsStatus) => {
           if (error === google.maps.DirectionsStatus.ZERO_RESULTS) {
@@ -117,28 +116,35 @@ export class FindRoutesComponent implements OnInit{
   }
 
 
-  onFindMe(position: Position){
+  onFindMe(position: google.maps.LatLng){
     // this.currentLat = position.coords.latitude;
     // this.currentLong = position.coords.longitude;
 
-    let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    this.map.panTo(location);
+    this.map.panTo(position);
     this.map.setZoom(15);
 
     if (!this.marker) {
       this.marker = new google.maps.Marker({
-        position: location,
+        position: position,
         map: this.map,
         title: 'Starting Location'
       });
     }
     else {
-      this.marker.setPosition(location);
+      this.marker.setPosition(position);
     }
   }
 
+
+  saveRoute(){
+    if (this.hasRoute){
+
+    }else{
+      console.log( "No route available to save");
+    }
+  }
  
   
  
-
+ 
 }
