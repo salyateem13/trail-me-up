@@ -13,7 +13,8 @@ export class AuthService {
   userData: any; // Save logged in user data
   private _registerUrl= "http://localhost:8080/registration";
   private _loginUrl =   "http://localhost:8080/login";
-  constructor( public afs: AngularFirestore,   // Inject Firestore service
+  constructor( 
+    public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
     public ngZone: NgZone, // NgZone service to remove outside scope warning
@@ -33,11 +34,13 @@ export class AuthService {
  
   SpringRegisterUser(user){
     return this.http.post<any>(this._registerUrl, user)
+    
   }
 
   SpringLoginUser(user){
     const headers = new HttpHeaders ({'Access-Control-Allow-Origin': '*'})
     return this.http.post<any>(this._loginUrl, user, {headers:headers})
+  
     1
   }
     // Sign in with email/password

@@ -31,6 +31,7 @@ import { FindRoutesComponent } from './components/dashboard/find-routes/find-rou
 import {GoogleMapsService} from './shared/services/google-maps.service';
 import { CircleRouteFormComponent } from './components/dashboard/find-routes/circle-route-form/circle-route-form.component';
 import { StraightShotFormComponent } from './components/dashboard/find-routes/straight-shot-form/straight-shot-form.component';
+import { RouteService } from './shared/services/route.service';
 
 
 @NgModule({
@@ -69,7 +70,7 @@ import { StraightShotFormComponent } from './components/dashboard/find-routes/st
     
  
   ],
-  providers: [AuthService,
+  providers: [AuthService,RouteService,
     GoogleMapsService],
   bootstrap: [AppComponent]
 })

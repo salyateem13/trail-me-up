@@ -4,6 +4,7 @@ import { ViewChild } from '@angular/core';
 import {GoogleMapsService} from '../../../shared/services/google-maps.service'
 import {LocationService} from '../../../shared/services/location.service';
 import {RouteService} from '../../../shared/services/route.service';
+import {Buffer} from 'buffer';
 @Component({
   selector: 'app-find-routes',
   templateUrl: './find-routes.component.html',
@@ -16,6 +17,7 @@ export class FindRoutesComponent implements OnInit{
   map: google.maps.Map;
   public pos;
 
+  public waypoints: google.maps.DirectionsGeocodedWaypoint;
   public c1isShown: boolean;
   public c2isShown: boolean;
   hasRoute:boolean;
@@ -41,7 +43,8 @@ export class FindRoutesComponent implements OnInit{
   constructor(
     public mapService: GoogleMapsService,
     public locationService: LocationService,
-    public routeService: RouteService
+    public routeService: RouteService,
+ 
   ) {
    
    }
@@ -112,7 +115,10 @@ export class FindRoutesComponent implements OnInit{
             }
         });
         this.hasRoute= true;
-    
+        
+        google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
+          this.waypoints = directionsDisplay.getDirections().geocoded_waypoints
+        })
   }
 
 
@@ -138,7 +144,14 @@ export class FindRoutesComponent implements OnInit{
 
   saveRoute(){
     if (this.hasRoute){
-
+      var dirResult ={
+        dir_result: this.directionsResult
+      }
+      
+      let objJsonStr = JSON.stringify(dirResult);
+    let objJsonB64 = Buffer.from(objJsonStr).toString("base64");
+      this.routeService.SaveRoute(objJsonB64)
+      console.log("route save attempted")
     }else{
       console.log( "No route available to save");
     }

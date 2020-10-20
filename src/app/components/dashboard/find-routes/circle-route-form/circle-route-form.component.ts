@@ -45,8 +45,7 @@ export class CircleRouteFormComponent implements OnInit {
   ngOnInit() {
     this.positionObject.emit(this.pos);
   }
-
-
+ 
   valueChanged(e) {
   
     this.totalDistance =e;
