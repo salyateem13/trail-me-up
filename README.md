@@ -1,6 +1,6 @@
 # MyApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.
+This project was written during the last few weeks of a Front End Developemnet internship. Built as a learning experience and generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2. 
 
 ## Development server
 
